@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace E_commerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly DataContext _dataContext;
@@ -80,7 +80,7 @@ namespace E_commerce.Areas.Admin.Controllers
                 return BadRequest(errorMessage);
             }
         }
-        public async Task<IActionResult> Edit(int Id)
+        public async Task<IActionResult> Edit(long Id)
         {
             ProductModel product = await _dataContext.Products.FindAsync(Id);
             ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
@@ -90,7 +90,7 @@ namespace E_commerce.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductModel product, int Id)
+        public async Task<IActionResult> Edit(ProductModel product, long Id)
         {
             ViewBag.Categories = new SelectList(_dataContext.Categories, "Id", "Name", product.CategoryId);
             ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name", product.BrandId);
@@ -139,7 +139,7 @@ namespace E_commerce.Areas.Admin.Controllers
                 return BadRequest(errorMessage);
             }
         }
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(long Id)
         {
             ProductModel product = await _dataContext.Products.FindAsync(Id);
             if(!string.Equals(product.Image, "noname.jpg"))

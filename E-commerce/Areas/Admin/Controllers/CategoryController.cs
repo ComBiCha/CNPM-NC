@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace E_commerce.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize]
-	public class CategoryController : Controller
+    [Authorize(Roles = "Admin")]
+    public class CategoryController : Controller
 	{
 		private readonly DataContext _dataContext;
 		public CategoryController(DataContext context)
