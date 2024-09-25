@@ -1,4 +1,5 @@
-﻿using E_commerce.Models;
+﻿using E_commerce.Areas.Admin.Repository;
+using E_commerce.Models;
 using E_commerce.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -8,9 +9,11 @@ namespace E_commerce.Controllers
 	public class CheckoutController : Controller
 	{
 		private readonly DataContext _datacontext;
-		public CheckoutController(DataContext context)
+		private readonly IEmailSender _emailSender;
+		public CheckoutController(DataContext context, IEmailSender emailSender)
 		{
 			_datacontext = context;
+			_emailSender = emailSender;
 		}
 		public async Task<IActionResult> Checkout()
 		{
@@ -43,7 +46,15 @@ namespace E_commerce.Controllers
 
 				}
 				HttpContext.Session.Remove("Cart");
-				TempData["success"] = "Checkout successfully";
+				//Send mail
+				var receiver = userEmail;
+				var subject = "Order Successfully";
+				var message = "We have received your order." +
+					"Your Order will be deliver to your house in 1-2 days. Thank you for your order";
+
+				await _emailSender.SendEmailAsync(receiver, subject, message);
+                //Send mail
+                TempData["success"] = "Checkout successfully";
 				return RedirectToAction("Index", "Cart");
 			}
 			return View();
