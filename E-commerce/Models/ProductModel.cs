@@ -23,6 +23,7 @@ namespace E_commerce.Models
         public int CategoryId { get; set; }
 		public CategoryModel Category { get; set; }
 		public BrandModel Brand { get; set; }
+		public RatingModel Ratings { get; set; }
 		public string Image { get; set; } = "noimage.jpg";
 
 		[NotMapped]
