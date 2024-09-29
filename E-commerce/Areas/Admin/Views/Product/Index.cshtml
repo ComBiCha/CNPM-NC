@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<ProductModel>
 @{
     ViewData["title"] = "Product Listed";
-    Paginate pager = new Paginate();
+    // Paginate pager = new Paginate();
 
-    int pageNo = 0;
+    // int pageNo = 0;
 
-    if (ViewBag.Pager != null)
-    {
-        pager = ViewBag.Pager;
+    // if (ViewBag.Pager != null)
+    // {
+    //     pager = ViewBag.Pager;
 
-        pageNo = pager.CurrentPage;
-    }
+    //     pageNo = pager.CurrentPage;
+    // }
 }
 <h3>List Products</h3>
 <a asp-action="Create" asp-controller="Product">Add Product</a>
 
-<table class="table">
+<table class="table" id="productTable">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -51,4 +51,9 @@
 
     </tbody>
 </table>
-<partial name="_paging" model="@pager" />
+@* <partial name="_paging" model="@pager" /> *@
+@section Scripts{
+    <script>
+    let table = new DataTable('#productTable');
+    </script>
+}
