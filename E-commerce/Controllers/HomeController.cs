@@ -30,7 +30,13 @@ namespace E_commerce.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public async Task<IActionResult> Contact()
+		{
+			var contact = await _datacontext.Contacts.FirstAsync();
+			return View(contact);
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statuscode)
         {
             if (statuscode == 404)
