@@ -45,7 +45,7 @@ namespace E_commerce.Controllers
                 IdentityResult result = await _userManager.CreateAsync(newUser,user.Password);
                 if (result.Succeeded)
                 {
-                    TempData["success"] = "Create account successfully";
+                    TempData["success"] = "Account created successfully!";
                     return Redirect("/Account/Login");
                 }
                 foreach (IdentityError error in result.Errors)
