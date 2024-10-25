@@ -19,8 +19,9 @@ namespace E_commerce.Controllers
 			CartItemViewModel cartVM = new()
 			{
 				CartItems = cartItems,
-				GrandTotal = cartItems.Sum(x => x.Quantity * x.Price)
-			};
+/*				GrandTotal = cartItems.Sum(x => x.Quantity * x.Price)
+*/                GrandTotal = cartItems.Sum(x => x.Quantity * x.Price)
+            };
 			return View(cartVM);
 		}
 		public IActionResult Checkout()
